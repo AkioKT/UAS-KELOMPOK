@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kamus Digital</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900&family=Eczar:wght@400..800&family=Hind:wght@300;400;500;600;700&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Orbitron:wght@400..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Quicksand:wght@300..700&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Rubik+Wet+Paint&family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap');
+    body {
+      font-family: "Poppins", sans-serif;
+    }
+
+    .divInput input {
+      padding: 10px 20px;
+      border: none;
+      outline: none;
+      font-size: 16px;
+      color: #303030;
+      background-color: #cdcdcd;
+      border-radius: 4px;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* .divInput::before {
+      content: '';
+      position: absolute;
+      top: -2px;
+      left: -2px;
+      right: -2px;
+      bottom: -2px;
+      background: linear-gradient(45deg, #ffffff, #000000, #ffffff, #000000);
+      background-size: 400% 400%;
+      border-radius: 4px;
+      z-index: 0;
+      animation: borderAnimation 6s linear infinite;
+    }
+    @keyframes borderAnimation {
+      0% {
+        background-position: 0% 50%;
+      }
+      50% {
+        background-position: 100% 50%;
+      }
+      100% {
+        background-position: 0% 50%;
+      }
+    }
+    #btnSearchWords {
+      animation: glowing 3s linear infinite;
+    }
+    @keyframes glowing {
+      0% {
+
+      }
+    } */
+
+    .circle {
+      width: 100px;
+      height: 100px;
+      position: absolute;
+      z-index: -1;
+      border-radius: 50%;
+      background-color: #9558f02c;
+      filter: blur(25px);
+      transition: background-color 0.5s ease;
+    }
+    #buttonTampilkan:hover #showDictionary:hover ~ .circle{
+      background-color: #9558f0;
+    }
+    /* From Uiverse.io by vinodjangid07 */ 
+    .loader {
+      width: fit-content;
+      height: fit-content;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      --book-color: #f1775b;
+      --book-cover-color: #506c86;
+    }
+    .book {
+      width: 50px;
+      height: 9px;
+      background-color: var(--book-color);
+      border-bottom: 2px solid var(--book-cover-color);
+      display: flex;
+      align-items: flex-start;
+      justify-content: flex-end;
+      position: relative;
+    }
+    .page {
+      width: 50%;
+      height: 2px;
+      background-color: var(--book-color);
+      animation: paging 0.7s ease-out infinite;
+      transform-origin: left;
+    }
+    .page2 {
+      width: 50%;
+      height: 2px;
+      background-color: var(--book-color);
+      animation: paging 0.8s ease-out infinite;
+      transform-origin: left;
+      position: absolute;
+    }
+    @keyframes paging {
+      10% {
+        transform: rotateZ(0deg);
+      }
+      100% {
+        transform: rotateZ(-180deg);
+      }
+    }
+
+  </style>
+</head>
+<body class="bg-gradient-to-b from-[#171717] from-30% via-[#262b33] via-60% to-[#171717] to-90%">
+  <!-- <div id="squares" class="absolute left-6 top-8 w-[10rem] h-[10rem] bg-white/40 rounded-full blur-3xl opacity-50 md:w-[10rem] md:h-[10rem] lg:w-[15rem] lg:h-[15rem] lg:bg-white/30"
+       style="clip-path: polygon(20% 0%, 100% 30%, 80% 100%, 0% 70%);">
+  </div>
+  <div id="squares" class="absolute left-16 top-4 w-[10rem] h-[10rem] bg-white/40 rounded-full blur-3xl opacity-50 md:w-[10rem] md:h-[10rem] lg:w-[15rem] lg:h-[15rem] lg:bg-white/30"
+       style="clip-path: polygon(20% 0%, 100% 30%, 80% 100%, 0% 70%);">
+  </div>
+  <div id="squares" class="absolute right-6 top-4 w-[10rem] h-[10rem] bg-white/40 rounded-full blur-3xl opacity-50 md:w-[10rem] md:h-[10rem] lg:w-[15rem] lg:h-[15rem] lg:bg-white/30"
+     style="clip-path: polygon(20% 0%, 100% 30%, 80% 100%, 0% 70%);">
+  </div>
+  <div id="squares" class="absolute right-16 top-8 w-[10rem] h-[10rem] bg-white/40 rounded-full blur-3xl opacity-50 md:w-[10rem] md:h-[10rem] lg:w-[15rem] lg:h-[15rem] lg:bg-white/30"
+     style="clip-path: polygon(20% 0%, 100% 30%, 80% 100%, 0% 70%);">
+  </div> -->
+
+  <div class="h-screen">
+    <div class="p-4 flex justify-center items-center gap-2 h-20">
+      <div class="loader">
+        <div class="book">
+          <div class="page"></div>
+          <div class="page page2"></div>
+        </div>
+      </div>
+      <h1 id="typing" class="text-3xl font-bold text-center text-white md:text-4xl"></h1>
+    </div>
+
+    <div class="flex flex-col justify-center">
+      <div class="h-full flex flex-col justify-center items-center gap-2">
+        <div id="dictionaryMiddle" class="w-[1px] h-0 bg-white mb-6 transition-all duration-500"></div>
+        <div id="book" class="shadow-2xl w-0 hidden relative overflow-hidden transition-all duration-500 rounded-xl border-[2px] border-white">
+          <div id="dictionaryLeft" class="bg-transparent w-full h-80 overflow-auto p-2 text-white rounded-l-xl"></div>
+          <div class="w-1 h-80 bg-white"></div>
+          <div id="dictionaryRight" class="bg-transparent w-full h-80 overflow-auto p-2 rounded-r-xl text-white"></div>
+        </div>
+
+        <div id="buttonTampilkan" class="p-4 w-full h-72 flex justify-center items-center relative">
+          <button onclick="showDictionary()" id="showDictionary" class="bg-gradient-to-br from-[#d347ef] via-[#9558f0] to-[#6765f1] text-white px-24 py-2 rounded transition-all duration-300">Tampilkan Kamus</button>
+          <div class="circle"></div>
+        </div>
+      </div>
+    </div>
+
+    <div id="showSearch" class="w-full flex flex-col gap-2 items-center absolute mt-2 bottom-2">
+      <div class="flex flex-col gap-2">
+        <h2 class="text-xl font-semibold text-white text-center">Cari Kata</h2>
+        <div class="divInput relative flex gap-2">
+          <input type="text" id="prefixInput" placeholder="Masukkan kata/huruf">
+          <button onclick="searchWords()" id="btnSearchWords" class="bg-[#4f46e5] text-white px-4 py-2 rounded absolute z-10 right-[2px] top-[2px] hover:bg-[#5d56ef] transition-all ease-in-out">Cari</button>
+        </div>
+        <div id="searchResults" class="text-sm text-black bg-white rounded-xl hidden"></div>
+        <div class="section grid grid-flow-col gap-2 w-full">
+          <div id="btnShowWords" class="w-full transition-all ease-in-out">
+            <button onclick="showWordCount()" class="w-full text-white bg-[#4f46e5] p-2 rounded hover:bg-[#5d56ef]">Jumlah Total Kata</button>
+          </div>
+          <div id="closeBook" class="w-[150px] hidden scale-0 transition-transform duration-300 ease-in-out">
+            <button onclick="closeBooks()" class="bg-[#e54646] w-full h-full text-base rounded text-white">Tutup Kamus</button>
+          </div>
+            <div id="wordCountDisplay" class="result text-white hidden"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
+
+<script>
+  // import Swal from 'sweetalert2';
+  // const Swal = require('sweetalert2');
+
+  class TreeNode {
+    constructor(letter) {
+      this.letter = letter;
+      this.words = [];
+      this.children = [];
+    }
+  }
+
+  function getWordList() {
+    return ["abjad", "acar", "adab", "advokat", "adidaya", "apotek", "akhirat", "aktual", "aktif", "alumunium", "ambulans",
+      "banderol", "baterai", "bazar", "becermin", "besok", "blender", "bolpoin", "bosan", "beterbangan", "bungker", "bus",
+      "cabai", "cedera", "cengkeram", "cinderamata", "cokelat", "canggih", "cita-cita", "cinta", "cerdas", "cekatan", "cuaca",
+      "dakwah", "daftar", "dekoratif", "detail", "debit", "deodorant", "derajat", "debat", "definisi", "desain", "data",
+      "efektifitas","ekspor","esens","etanol","elektrode","evakuasi","ekstra","ekosistem", "efektif","esai","episode","ensiklopedia",
+      "ekonomi", "elemen", "elite", "empati", "fasilitas", "fakta", "fajar", "fiksi", "fobia", "forum","favorit","faksimili", "formal","fotosintensis", "foto", "fokus", "frekuensi", "gabungan", "gadget", "gagal", "gajah", "gaya", "geografi", 
+      "gerak", "gizi", "grafis", "gratis", "hampir", "hari", "hati", "hebat", "hilang","hidup", "hukum", "hubungan", "hutan", 
+      "hotel", "humor", "ikan", "ilmu", "industri", "inovasi", "internet", "identitas", "istirahat", "izin", "irama", "islam",
+      "jam", "jalan", "jatuh", "jiwa", "jendela", "jika", "jujur", "jari", "jembatan", "jengkel", "kabut", "kaca", "kader", 
+      "kamar", "kampus", "karena", "karyawan", "kasur", "kata", "keluar", "laki-laki", "lampu", "laporan", "lawan", "lebar", 
+      "lembut", "luas", "lingkungan", "luar", "lupa", "makanan", "malam", "membaca", "mendengar", "mengerti", "melihat", 
+      "mobil", "muda", "musik", "murni", "nasi", "nasihat", "negara", "nilai", "nona", "normal", "nyaman", "nyaris", "nyawa", 
+      "obat", "olahraga", "onak", "orang", "optimal", "otak", "obrolan", "objek", "ombak", "organisasi", "pabrik", "pada", 
+      "pahlawan", "pajak", "pakaian", "pancing", "panas", "pantai", "parfum", "pasar", "qatar", "qadar", "quatrain", "quasi", 
+      "quorum", "quote", "quilt", "quiescence", "quota", "rambut", "rakyat", "rasul", "resep", "restoran", "rumah", "ruang", 
+      "rusa", "rugi", "renang", "sakit", "salam", "sapi", "sarapan", "satria", "sehat", "sekitar", "sekolah", "sederhana", 
+      "segala", "tamu", "tanya", "tanpa", "terlambat", "terima", "terang", "tindak", "tutup", "tugas", "tidur", "uang", 
+      "ubur-ubur", "universitas", "untung", "usulan", "untuk", "usaha", "ukuran", "vaksin", "voting", "veteran", "vokal", 
+      "variansi", "virus", "vulkanik", "vibran", "valid","vila", "waktu", "warung", "wiraswasta", "warna", "warga", "wayang", "wisata", 
+      "wujud", "wanita", "widya", "xenon", "xylophone", "xenophobia", "xilograf", "xerosis", "xerofit","xifoid","xantofil","xenoglosia","xilem",
+      "yayasan", "yakub", "yoga", "yakin", "yudikatif", "yurisdiksi","yudisial","yaitu","yodium","yogyakarta", "zaman", "zarah", "zat","ziter", "zebra", "zikir", "zona", "zodiak", "zumba", "zero"];
+  }
+
+  const words = getWordList();
+  const root = buildTree(words);
+
+  function buildTree(words) {
+    const root = new TreeNode(null);
+
+    for (const word of words) {
+      const letter = word[0].toLowerCase();
+      let child = root.children.find(c => c.letter === letter);
+      if (!child) {
+        child = new TreeNode(letter);
+        root.children.push(child);
+      }
+      child.words.push(word);
+    }
+
+    return root;
+  }
+
+  function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+  }
+
+  function waitTransitionEnd(element) {
+    return new Promise(resolve => {
+      const handler = () => {
+        element.removeEventListener("transitionend", handler);
+        resolve();
+      };
+      element.addEventListener("transitionend", handler);
+    });
+  }
+
+  async function showDictionary() {
+    const leftDisplay = document.getElementById("dictionaryLeft");
+    const rightDisplay = document.getElementById("dictionaryRight");
+    const midDisplay = document.getElementById("dictionaryMiddle");
+    const showDictionarys = document.getElementById("showDictionary");
+    const book = document.getElementById("book");
+    const btnTampilkan = document.getElementById("buttonTampilkan");
+    const btnCloseBook = document.getElementById("closeBook");
+    const btnShowWords = document.getElementById("btnShowWords");
+
+    btnTampilkan.classList.replace("flex", "hidden");
+
+    //Hilangkan tombol "Tampilkan Kamus"
+    showDictionarys.classList.add("hidden");
+
+    // 1. Mulai animasi pertama (contoh: tutup atau ubah tinggi)
+    midDisplay.classList.replace("h-0", "h-80");
+
+    // 2. Tunggu transisi selesai
+    await waitTransitionEnd(midDisplay);
+
+    // 3. Sembunyikan dan tampilkan buku
+    midDisplay.classList.add("hidden");
+    book.classList.replace("hidden", "flex");
+
+    // 4. Tambahkan delay (misalnya efek loading)
+    await sleep(0);
+
+    // 5. Tampilkan halaman kamus dengan animasi buka
+    book.classList.add("w-[80%]"); // pastikan default-nya w-0 di awal
+
+    // Kosongkan dulu tampilan kamus
+    leftDisplay.innerHTML = "";
+    rightDisplay.innerHTML = "";
+
+    // 6. Bagi data dan tampilkan ke kiri dan kanan
+    const top = [], bottom = [];
+    for (const child of root.children) {
+      if (child.letter.toLowerCase() <= 'm') top.push(child);
+      else bottom.push(child);
+    }
+
+    leftDisplay.appendChild(buildSection("Kamus A-M", top));
+    rightDisplay.appendChild(buildSection("Kamus N-Z", bottom));
+
+    btnShowWords.classList.replace("w-full", "w-[170px]")
+    await sleep(200)
+    btnCloseBook.classList.remove("hidden");
+    setTimeout(() => {
+      btnCloseBook.classList.replace("scale-0", "scale-100");
+    }, 100);
+  }
+
+  async function closeBooks() {
+    const leftDisplay = document.getElementById("dictionaryLeft");
+    const rightDisplay = document.getElementById("dictionaryRight");
+    const midDisplay = document.getElementById("dictionaryMiddle");
+    const showDictionarys = document.getElementById("showDictionary");
+    const book = document.getElementById("book");
+    const btnTampilkan = document.getElementById("buttonTampilkan");
+    const btnCloseBook = document.getElementById("closeBook");
+    const btnShowWords = document.getElementById("btnShowWords");
+
+    setTimeout(() => {
+      btnShowWords.classList.replace("w-[170px]", "w-full");
+    }, 300);
+    // 1. Sembunyikan tombol closeBook dengan animasi
+    btnCloseBook.classList.replace("scale-100", "scale-0");
+    await sleep(300); // tunggu animasi selesai
+    btnCloseBook.classList.add("hidden");
+
+    // 2. Tutup buku (ubah lebar ke 0)
+    book.classList.remove("w-[80%]");
+    await sleep(300); // pastikan transisinya terlihat
+
+    // 3. Sembunyikan buku, tampilkan kembali bagian tengah
+    book.classList.replace("flex", "hidden");
+    midDisplay.classList.remove("hidden");
+
+    // 4. Kosongkan isi kamus
+    leftDisplay.innerHTML = "";
+    rightDisplay.innerHTML = "";
+
+    // 5. Kembalikan tinggi midDisplay (toggle class h-80)
+    midDisplay.classList.replace("h-80", "h-0");
+    await sleep(50)
+    // setTimeout(closeBooks, 2000);
+    // 6. Tampilkan tombol "Tampilkan Kamus" dan tombol tampilkan
+    showDictionarys.classList.remove("hidden");
+    showDictionarys.classList.add("scale-75");
+    setTimeout(() => {
+      showDictionarys.classList.replace("scale-75", "scale-100");
+    }, 100);
+    btnTampilkan.classList.replace("hidden", "flex");
+  }
+
+
+
+  function buildSection(title, nodes) {
+    const section = document.createElement("div");
+    section.innerHTML = `<strong>${title}</strong>`;
+    const table = document.createElement("div");
+    table.className = "word-table";
+
+    for (const node of nodes) {
+      const col = document.createElement("div");
+      col.className = "word-column";
+      col.innerHTML = `<strong>${node.letter.toUpperCase()}</strong><br>${node.words.join("<br>")}`;
+      table.appendChild(col);
+    }
+
+    section.appendChild(table);
+    return section;
+  }
+
+  function searchWords() {
+    const prefix = document.getElementById("prefixInput").value.toLowerCase();
+    const prefixS = document.getElementById("prefixInput");
+    const resultDiv = document.getElementById("searchResults");
+    resultDiv.innerHTML = "";
+
+    if (!prefix) {
+      resultDiv.innerText = "Masukkan prefix kata.";
+      Swal.fire({
+        icon: 'info',
+        html: resultDiv.innerHTML,
+        showCloseButton: true,
+        background: '#171717',
+        color: '#ffffff',
+        confirmButtonColor: '#4f46e5',
+        customClass: {
+          title: 'text-yellow-300'
+        }
+      });
+      return;
+    }
+
+    const letter = prefix[0];
+    const child = root.children.find(c => c.letter === letter);
+    if (child) {
+      const matches = child.words.filter(word => word.startsWith(prefix));
+      if (matches.length > 0) {
+        var kataKata = matches.map((w, index) => {
+          let kapital = w.charAt(0).toUpperCase() + w.slice(1);
+          return `<li>${index + 1}. ${kapital}</li>`;
+        }).join("");
+        resultDiv.innerHTML = `<strong>Kata-kata yang dimulai dengan '${prefix}':</strong><ul>${kataKata}</ul>`;
+      } else {
+        resultDiv.innerText = `Tidak ada kata yang dimulai dengan '${prefix}'.`;
+      }
+    } else {
+      resultDiv.innerText = `Tidak ada kata yang dimulai dengan '${prefix}'.`;
+    }
+    Swal.fire({
+      title: "Hasil Pencarian",
+      html: resultDiv.innerHTML,
+      showCloseButton: true,
+      background: '#171717',
+      color: '#ffffff',
+      confirmButtonColor: '#4f46e5',
+      customClass: {
+        title: 'text-yellow-300' // bisa pakai class Tailwind (kalau project kamu pakai Tailwind)
+      }
+    });
+
+    prefixS.value = "";
+  }
+
+  function showWordCount() {
+    const count = words.length;
+    const countDiv = document.getElementById("wordCountDisplay");
+    countDiv.innerHTML = `Total kata dalam kamus : ${count}`;
+    Swal.fire({
+      title: "Hasil Pencarian",
+      html: countDiv.innerHTML,
+      showCloseButton: true,
+      confirmButtonColor: '#4f46e5',
+      background: '#171717',
+      color: '#ffffff',
+      customClass: {
+        title: 'text-yellow-300' // bisa pakai class Tailwind (kalau project kamu pakai Tailwind)
+      }
+    })
+  }
+
+  const teks = "Kamus Digital...";
+  const typingDiv = document.getElementById("typing");
+
+  let i = 0;
+  let isDeleting = false;
+
+  function ketik() {
+    if (!isDeleting) {
+      typingDiv.textContent = teks.substring(0, i);
+      i++;
+      if (i > teks.length) {
+        isDeleting = true;
+        setTimeout(ketik, 2000); // jeda sebelum mulai menghapus
+        return;
+      }
+    } else {
+      typingDiv.textContent = teks.substring(0, i);
+      i--;
+      if (i < 0) {
+        isDeleting = false;
+      }
+    }
+    setTimeout(ketik, isDeleting ? 30 : 150); // kecepatan hapus dan ketik
+  }
+  ketik();
+</script>
