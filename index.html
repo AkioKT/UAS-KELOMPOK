@@ -24,39 +24,6 @@
       z-index: 1;
     }
 
-    /* .divInput::before {
-      content: '';
-      position: absolute;
-      top: -2px;
-      left: -2px;
-      right: -2px;
-      bottom: -2px;
-      background: linear-gradient(45deg, #ffffff, #000000, #ffffff, #000000);
-      background-size: 400% 400%;
-      border-radius: 4px;
-      z-index: 0;
-      animation: borderAnimation 6s linear infinite;
-    }
-    @keyframes borderAnimation {
-      0% {
-        background-position: 0% 50%;
-      }
-      50% {
-        background-position: 100% 50%;
-      }
-      100% {
-        background-position: 0% 50%;
-      }
-    }
-    #btnSearchWords {
-      animation: glowing 3s linear infinite;
-    }
-    @keyframes glowing {
-      0% {
-
-      }
-    } */
-
     .circle {
       width: 100px;
       height: 100px;
@@ -114,6 +81,19 @@
       }
     }
 
+    #showWordCount:hover {
+      animation: glowing 5s linear infinite;
+    }
+
+    @keyframes glowing {
+      0%, 20%, 40%, 60%, 80%, 100% {
+        background-color: #4f46e5;
+      }
+      10%, 30%, 50%, 70%, 90% {
+        background-color: #7872e0;
+      }
+    }
+
   </style>
 </head>
 <body class="bg-gradient-to-b from-[#171717] from-30% via-[#262b33] via-60% to-[#171717] to-90%">
@@ -167,7 +147,7 @@
         <div id="searchResults" class="text-sm text-black bg-white rounded-xl hidden"></div>
         <div class="section grid grid-flow-col gap-1 w-full h-fit">
           <div id="btnShowWords" class="w-full transition-all ease-in-out">
-            <button onclick="showWordCount()" class="w-full text-white bg-[#4f46e5] p-2 rounded hover:bg-[#5d56ef]">Jumlah Total Kata</button>
+            <button id="showWordCount" onclick="showWordCount()" class="w-full text-white scale-[1] bg-[#4f46e5] p-2 rounded active::scale[0.95]">Jumlah Total Kata</button>
           </div>
           <div id="closeBook" class="w-[160px] h-full hidden scale-0 transition-transform duration-300 ease-in-out">
             <button onclick="closeBooks()" class="bg-[#e54646] w-full p-2 text-base rounded text-white">Tutup Kamus</button>
@@ -402,6 +382,7 @@
     } else {
       resultDiv.innerText = `Tidak ada kata yang dimulai dengan '${prefix}'.`;
     }
+
     Swal.fire({
       title: "Hasil Pencarian",
       html: resultDiv.innerHTML,
