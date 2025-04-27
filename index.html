@@ -143,13 +143,13 @@
       <div class="h-full flex flex-col justify-center items-center gap-2">
         <div id="dictionaryMiddle" class="w-[1px] h-0 bg-white mb-6 transition-all duration-500"></div>
         <div id="book" class="shadow-2xl w-0 hidden relative overflow-hidden transition-all duration-500 rounded-xl border-[2px] border-white">
-          <div id="dictionaryLeft" class="bg-transparent w-full h-80 overflow-auto p-2 text-white rounded-l-xl"></div>
+          <div id="dictionaryLeft" class="bg-transparent w-full h-80 overflow-auto p-2 rounded-l-xl text-white"></div>
           <div class="w-1 h-80 bg-white"></div>
           <div id="dictionaryRight" class="bg-transparent w-full h-80 overflow-auto p-2 rounded-r-xl text-white"></div>
         </div>
 
         <div id="buttonTampilkan" class="p-4 w-full h-72 flex justify-center items-center relative">
-          <button onclick="showDictionary()" id="showDictionary" class="bg-gradient-to-br from-[#d347ef] via-[#9558f0] to-[#6765f1] text-white px-24 py-2 rounded transition-all duration-300">Tampilkan Kamus</button>
+          <button onclick="showDictionary()" id="showDictionary" class="bg-gradient-to-br from-[#d347ef] via-[#9558f0] to-[#6765f1] text-white px-24 py-2 rounded transition-all duration-300 cursor-pointer">Tampilkan Kamus</button>
           <div class="circle"></div>
         </div>
       </div>
@@ -160,15 +160,15 @@
         <h2 class="text-xl font-semibold text-white text-center">Cari Kata</h2>
         <div class="divInput relative flex gap-2">
           <input type="text" id="prefixInput" placeholder="Masukkan kata/huruf">
-          <button onclick="searchWords()" id="btnSearchWords" class="bg-[#4f46e5] text-white px-4 py-2 rounded absolute z-10 right-[2px] top-[2px] hover:bg-[#5d56ef] transition-all ease-in-out">Cari</button>
+          <button onclick="searchWords()" id="btnSearchWords" class="bg-[#4f46e5] text-white px-4 py-2 rounded absolute z-10 right-[2px] top-[2px] hover:bg-[#5d56ef] transition-all ease-in-out cursor-pointer">Cari</button>
         </div>
         <div id="searchResults" class="text-sm text-black bg-white rounded-xl hidden"></div>
         <div class="section grid grid-flow-col gap-1 w-full h-fit">
           <div id="btnShowWords" class="w-full transition-all ease-in-out">
-            <button id="showWordCount" onclick="showWordCount()" class="w-full text-white scale-[1] bg-[#4f46e5] p-2 rounded active::scale[0.95]">Jumlah Total Kata</button>
+            <button id="showWordCount" onclick="showWordCount()" class="w-full text-white scale-[1] bg-[#4f46e5] p-2 rounded cursor-pointer active::scale[0.95]">Jumlah Total Kata</button>
           </div>
           <div id="closeBook" class="w-[160px] h-full hidden scale-0 transition-transform duration-300 ease-in-out">
-            <button onclick="closeBooks()" class="bg-[#e54646] w-full p-2 text-base rounded text-white">Tutup Kamus</button>
+            <button onclick="closeBooks()" class="bg-[#e54646] hover:bg-[#ff5b5b] w-full p-2 text-base rounded text-white cursor-pointer">Tutup Kamus</button>
           </div>
             <div id="wordCountDisplay" class="result text-white hidden"></div>
         </div>
@@ -374,7 +374,7 @@
         icon: 'info',
         html: resultDiv.innerHTML,
         showCloseButton: true,
-        background: '#171717',
+        background: '#202020',
         color: '#ffffff',
         confirmButtonColor: '#4f46e5',
         customClass: {
@@ -405,7 +405,7 @@
       title: "Hasil Pencarian",
       html: resultDiv.innerHTML,
       showCloseButton: true,
-      background: '#171717',
+      background: '#202020',
       color: '#ffffff',
       confirmButtonColor: '#4f46e5',
       customClass: {
@@ -425,7 +425,7 @@
       html: countDiv.innerHTML,
       showCloseButton: true,
       confirmButtonColor: '#4f46e5',
-      background: '#171717',
+      background: '#202020',
       color: '#ffffff',
       customClass: {
         title: 'text-yellow-300' // bisa pakai class Tailwind (kalau project kamu pakai Tailwind)
